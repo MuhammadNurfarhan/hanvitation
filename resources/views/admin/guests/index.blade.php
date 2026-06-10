@@ -83,7 +83,7 @@
                             <span class="text-xs text-blue-400">({{ $wa['phone'] }})</span>
                         </a>
                     </li>
-                    @endforeach 
+                    @endforeach
                 </ul>
                 <p class="text-xs text-blue-500 mt-2 italic">💡 Klik link untuk buka WhatsApp satu per satu.</p>
             </div>
@@ -100,13 +100,28 @@
                             <input type="hidden" name="wedding_id" value="{{ request('wedding_id') }}">
                             @endif
                             <div class="relative">
-                                <input type="text" name="search" value="{{ request('search') }}"
-                                    placeholder="Search guests by name..."
-                                    class="w-full pl-10 pr-4 py-2 rounded-xl border border-stone-300 focus:border-amber-600 focus:ring-2 focus:ring-amber-200 outline-none">
+                                {{-- Input Search (pr-4 diubah jadi pr-10 agar tidak ketutup icon X) --}}
+                                <input type="text" name="search" id="searchInput" value="{{ request('search') }}"
+                                    placeholder="Cari Nama Tamu..."
+                                    class="w-full pl-10 pr-10 py-2 rounded-xl border border-stone-300 focus:border-amber-600 focus:ring-2 focus:ring-amber-200 outline-none">
+
+                                {{-- Icon Kaca Pembesar (Kiri) --}}
                                 <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                 </svg>
+
+                                {{-- Icon X untuk Reset (Kanan) --}}
+                                @if(request('search'))
+                                <button type="button"
+                                    onclick="document.getElementById('searchInput').value=''; this.closest('form').submit();"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400 hover:text-red-600 transition cursor-pointer focus:outline-none"
+                                    title="Reset Pencarian">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                                @endif
                             </div>
                         </form>
 
