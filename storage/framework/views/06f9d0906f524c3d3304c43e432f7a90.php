@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Undangan Pernikahan {{ $wedding->groom_name }} & {{ $wedding->bride_name }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <meta name="description" content="Undangan Pernikahan <?php echo e($wedding->groom_name); ?> & <?php echo e($wedding->bride_name); ?>">
     <meta name="theme-color" content="#7f1d1d">
 
-    <title>The Wedding of {{ $wedding->groom_first_name }} & {{ $wedding->bride_first_name }}</title>
+    <title>The Wedding of <?php echo e($wedding->groom_first_name); ?> & <?php echo e($wedding->bride_first_name); ?></title>
 
-    {{-- FAVICON & APP ICONS --}}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
-    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    
+    <link rel="icon" type="image/x-icon" href="<?php echo e(asset('favicon.ico')); ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo e(asset('favicon-32x32.png')); ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(asset('favicon-16x16.png')); ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo e(asset('apple-touch-icon.png')); ?>">
+    <link rel="manifest" href="<?php echo e(asset('site.webmanifest')); ?>">
     <meta name="msapplication-TileColor" content="#7f1d1d">
-    <meta name="apple-mobile-web-app-title" content="Hanvitation">
-    <meta name="application-name" content="Hanvitation">
 
-    {{-- Fonts --}}
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
-    {{-- Tailwind CSS --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 
     <style>
         [x-cloak] { display: none !important; }
@@ -109,72 +107,66 @@
       x-data="weddingApp()"
       x-init="init()">
 
-    {{-- ============================================
-         ENVELOPE OPENING ANIMATION
-    ============================================ --}}
-    @include('guest.partials.envelope')
+    
+    <?php echo $__env->make('guest.partials.envelope', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-    {{-- ============================================
-         MAIN INVITATION CONTENT
-    ============================================ --}}
+    
     <div x-show="invitationOpened" x-cloak
          x-transition:enter="transition ease-out duration-700"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
          class="relative">
 
-        {{-- Sticky Header --}}
-        @include('guest.partials.header')
+        
+        <?php echo $__env->make('guest.partials.header', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Cover Section --}}
-        @include('guest.partials.cover')
+        
+        <?php echo $__env->make('guest.partials.cover', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Bible Quote --}}
-        @include('guest.partials.quote')
+        
+        <?php echo $__env->make('guest.partials.quote', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- The Couple --}}
-        @include('guest.partials.couple')
+        
+        <?php echo $__env->make('guest.partials.couple', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Wedding Events --}}
-        @include('guest.partials.events')
+        
+        <?php echo $__env->make('guest.partials.events', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Gallery --}}
-        @include('guest.partials.gallery')
+        
+        <?php echo $__env->make('guest.partials.gallery', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- RSVP --}}
-        @include('guest.partials.rsvp')
+        
+        <?php echo $__env->make('guest.partials.rsvp', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Digital Envelope --}}
-        @include('guest.partials.digital-envelope')
+        
+        <?php echo $__env->make('guest.partials.digital-envelope', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Guestbook --}}
-        @include('guest.partials.guestbook')
+        
+        <?php echo $__env->make('guest.partials.guestbook', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Closing Message --}}
-        @include('guest.partials.closing')
+        
+        <?php echo $__env->make('guest.partials.closing', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Footer --}}
-        @include('guest.partials.footer')
+        
+        <?php echo $__env->make('guest.partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-        {{-- Bottom Navigation --}}
-        @include('guest.partials.bottom-nav')
+        
+        <?php echo $__env->make('guest.partials.bottom-nav', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     </div>
 
-    {{-- Background Music --}}
+    
     <audio id="bgMusic" loop preload="auto">
-        @if($wedding->music_file)
-            {{-- ✅ Prioritas: File Upload dari Storage --}}
-            <source src="{{ asset('storage/' . $wedding->music_file) }}" type="audio/mpeg">
-        @else
-            {{-- 🎵 Default: Musik fallback jika tidak ada upload --}}
-            <source src="{{ asset('audio/default-wedding.mp3') }}" type="audio/mpeg">
-        @endif
+        <?php if($wedding->music_file): ?>
+            
+            <source src="<?php echo e(asset('storage/' . $wedding->music_file)); ?>" type="audio/mpeg">
+        <?php else: ?>
+            
+            <source src="<?php echo e(asset('audio/default-wedding.mp3')); ?>" type="audio/mpeg">
+        <?php endif; ?>
         Your browser does not support the audio element.
     </audio>
 
-    {{-- ============================================
-         ALPINE.JS APPLICATION
-    ============================================ --}}
+    
     <script>
         function weddingApp() {
             return {
@@ -182,7 +174,7 @@
                 invitationOpened: false,
                 isPlaying: false,
                 showEnvelope: true,
-                guestName: '{{ $guestName ?? "" }}',
+                guestName: '<?php echo e($guestName ?? ""); ?>',
                 countdown: { days: '00', hours: '00', minutes: '00', seconds: '00' },
                 activeSection: 'cover',
 
@@ -288,7 +280,7 @@
                 },
 
                 startCountdown() {
-                    const target = new Date('{{ $wedding->event_date }}').getTime();
+                    const target = new Date('<?php echo e($wedding->event_date); ?>').getTime();
 
                     const update = () => {
                         const now = new Date().getTime();
@@ -348,7 +340,7 @@
                         const uniqueCodeInput = document.querySelector('input[name="unique_code"]');
                         const uniqueCode = uniqueCodeInput?.value || '';
 
-                        const response = await fetch('{{ route("guest.rsvp.store", $wedding->slug) }}', {
+                        const response = await fetch('<?php echo e(route("guest.rsvp.store", $wedding->slug)); ?>', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -383,7 +375,7 @@
                 async loadGuestbook() {
                     this.guestbookLoading = true;
                     try {
-                        const response = await fetch('{{ route("guest.guestbook.index", $wedding->slug) }}');
+                        const response = await fetch('<?php echo e(route("guest.guestbook.index", $wedding->slug)); ?>');
                         const data = await response.json();
                         this.guestbookMessages = data.messages?.data || data.messages || [];
                     } catch (error) {
@@ -404,7 +396,7 @@
                         const uniqueCodeInput = document.querySelector('input[name="unique_code"]');
                         const uniqueCode = uniqueCodeInput ? uniqueCodeInput.value : '';
 
-                        const response = await fetch('{{ route("guest.guestbook.store", $wedding->slug) }}', {
+                        const response = await fetch('<?php echo e(route("guest.guestbook.store", $wedding->slug)); ?>', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -445,12 +437,12 @@
 
                 // Gallery Methods
                 prevSlide() {
-                    const images = @json($wedding->gallery->pluck('url')->map(fn($u) => asset('storage/' . $u)));
+                    const images = <?php echo json_encode($wedding->gallery->pluck('url')->map(fn($u) => asset('storage/' . $u)), 15, 512) ?>;
                     this.currentSlide = (this.currentSlide - 1 + images.length) % images.length;
                 },
 
                 nextSlide() {
-                    const images = @json($wedding->gallery->pluck('url')->map(fn($u) => asset('storage/' . $u)));
+                    const images = <?php echo json_encode($wedding->gallery->pluck('url')->map(fn($u) => asset('storage/' . $u)), 15, 512) ?>;
                     this.currentSlide = (this.currentSlide + 1) % images.length;
                 },
 
@@ -475,9 +467,9 @@
                 },
 
                 addToCalendar() {
-                    const date = new Date('{{ $wedding->event_date }}');
-                    const title = 'Pernikahan {{ $wedding->groom_first_name }} & {{ $wedding->bride_first_name }}';
-                    const location = '{{ $wedding->receptionEvent?->venue_name ?? "" }}';
+                    const date = new Date('<?php echo e($wedding->event_date); ?>');
+                    const title = 'Pernikahan <?php echo e($wedding->groom_first_name); ?> & <?php echo e($wedding->bride_first_name); ?>';
+                    const location = '<?php echo e($wedding->receptionEvent?->venue_name ?? ""); ?>';
 
                     const startDate = date.toISOString().replace(/-|:|\.\d+/g, '');
                     const endDate = new Date(date.getTime() + 4 * 60 * 60 * 1000).toISOString().replace(/-|:|\.\d+/g, '');
@@ -498,3 +490,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\hanvitation\resources\views/guest/invitation.blade.php ENDPATH**/ ?>
