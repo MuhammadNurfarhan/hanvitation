@@ -19,7 +19,7 @@
             @endphp
 
             {{-- Grid Item --}}
-            <div class="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 {{ $index >= 6 ? 'hidden sm:block' : '' }}">
+            <div class="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 {{ $index >= 8 ? 'hidden sm:block' : '' }}">
                 <div class="aspect-square bg-stone-100">
                     <img src="{{ $url }}"
                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
