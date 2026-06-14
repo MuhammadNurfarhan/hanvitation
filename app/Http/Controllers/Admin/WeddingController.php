@@ -224,8 +224,12 @@ class WeddingController extends Controller
             ->with('success', '🎉 Undangan berhasil dipublish! Link: ' . $wedding->getInvitationUrlAttribute());
     }
 
-    public function addEvent(Request $request, Wedding $wedding)
+    public function addEvent(Request $request, $weddingId)
     {
+        // Find wedding manually
+        $wedding = Wedding::findOrFail($weddingId);
+
+        // Authorization
         if (!Auth::user()->isAdmin() && $wedding->user_id !== Auth::id()) {
             abort(403);
         }
@@ -246,15 +250,18 @@ class WeddingController extends Controller
             ->with('success', '✅ Event added successfully!');
     }
 
-    public function updateEvent(Request $request, Wedding $wedding, \App\Models\Event $event)
+    public function updateEvent(Request $request, $weddingId, $eventId)
     {
+        // Find wedding manually
+        $wedding = Wedding::findOrFail($weddingId);
+
+        // Authorization
         if (!Auth::user()->isAdmin() && $wedding->user_id !== Auth::id()) {
             abort(403);
         }
 
-        if ($event->wedding_id !== $wedding->id) {
-            abort(404);
-        }
+        // Find event manually dengan filter wedding_id
+        $event = $wedding->events()->findOrFail($eventId);
 
         $validated = $request->validate([
             'type' => 'required|in:misa,resepsi,akad,ramah_tamah',
@@ -322,16 +329,18 @@ class WeddingController extends Controller
     /**
      * Delete an event from wedding
      */
-    public function deleteEvent(Wedding $wedding, \App\Models\Event $event)
+    public function deleteEvent($weddingId, $eventId)
     {
-        // Authorization: pastikan event milik wedding ini & user punya akses
-        if ($event->wedding_id !== $wedding->id) {
-            abort(404);
-        }
+        // Find wedding manually
+        $wedding = Wedding::findOrFail($weddingId);
 
+        // Authorization
         if (!Auth::user()->isAdmin() && $wedding->user_id !== Auth::id()) {
             abort(403);
         }
+
+        // Find event dengan filter wedding_id (pastikan event milik wedding ini)
+        $event = $wedding->events()->findOrFail($eventId);
 
         $event->delete();
 
@@ -342,18 +351,16 @@ class WeddingController extends Controller
     /**
      * Delete a gallery photo from wedding
      */
-    public function deleteGallery(Wedding $wedding, \App\Models\GalleryPhoto $photo)
+    public function deleteGallery($weddingId, $photoId)
     {
-        // Authorization
-        if ($photo->wedding_id !== $wedding->id) {
-            abort(404);
-        }
+        $wedding = Wedding::findOrFail($weddingId);
 
         if (!Auth::user()->isAdmin() && $wedding->user_id !== Auth::id()) {
             abort(403);
         }
 
-        // Delete file from storage
+        $photo = $wedding->gallery()->findOrFail($photoId);
+
         if ($photo->url && Storage::disk('public')->exists($photo->url)) {
             Storage::disk('public')->delete($photo->url);
         }
@@ -367,17 +374,15 @@ class WeddingController extends Controller
     /**
      * Delete a bank account from wedding
      */
-    public function deleteBankAccount(Wedding $wedding, \App\Models\BankAccount $bank)
+    public function deleteBankAccount($weddingId, $bankId)
     {
-        // Authorization
-        if ($bank->wedding_id !== $wedding->id) {
-            abort(404);
-        }
+        $wedding = Wedding::findOrFail($weddingId);
 
         if (!Auth::user()->isAdmin() && $wedding->user_id !== Auth::id()) {
             abort(403);
         }
 
+        $bank = $wedding->bankAccounts()->findOrFail($bankId);
         $bank->delete();
 
         return redirect()->route('weddings.edit', $wedding)
