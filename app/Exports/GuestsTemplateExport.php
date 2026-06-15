@@ -44,9 +44,9 @@ class GuestsTemplateExport implements FromCollection, WithHeadings, WithTitle, W
     {
         return [
             'name',          // ✅ Wajib: nama tamu
-            'phone',         // ⚪ Opsional: nomor WhatsApp (format: 08xxx atau 628xxx)
-            'email',         // ⚪ Opsional: alamat email
-            'guest_count',   // ⚪ Opsional: jumlah tamu yang dibawa (default: 1)
+            'phone',         //  Opsional: nomor WhatsApp (format: 08xxx atau 628xxx)
+            'email',         //  Opsional: alamat email
+            'guest_count',   //  Opsional: jumlah tamu yang dibawa (default: 1)
         ];
     }
 
