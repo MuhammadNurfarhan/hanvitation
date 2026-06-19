@@ -9,13 +9,13 @@
         {{-- Bride --}}
         <div class="text-center mb-10">
             <div class="relative inline-block mb-4">
-                <div class="absolute inset-0 bg-amber-200 rounded-full transform -rotate-6 scale-105"></div>
+                <div class="absolute inset-0 bg-amber-200 rounded-2xl transform -rotate-6 scale-105"></div>
                 @if($wedding->bride_photo)
                 <img src="{{ asset('storage/' . $wedding->bride_photo) }}"
                      alt="{{ $wedding->bride_name }}"
-                     class="relative w-36 h-36 sm:w-40 sm:h-40 object-cover rounded-full shadow-xl border-4 border-white">
+                     class="relative w-36 h-36 sm:w-40 sm:h-40 object-cover rounded-2xl shadow-xl border-4 border-white">
                 @else
-                <div class="relative w-36 h-36 sm:w-40 sm:h-40 bg-gradient-to-br from-stone-200 to-stone-300 rounded-full shadow-xl border-4 border-white flex items-center justify-center">
+                <div class="relative w-36 h-36 sm:w-40 sm:h-40 bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl shadow-xl border-4 border-white flex items-center justify-center">
                     <svg class="w-16 h-16 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
@@ -58,13 +58,13 @@
         {{-- Groom --}}
         <div class="text-center">
             <div class="relative inline-block mb-4">
-                <div class="absolute inset-0 bg-amber-200 rounded-full transform rotate-6 scale-105"></div>
+                <div class="absolute inset-0 bg-amber-200 rounded-2xl transform rotate-6 scale-105"></div>
                 @if($wedding->groom_photo)
                 <img src="{{ asset('storage/' . $wedding->groom_photo) }}"
                      alt="{{ $wedding->groom_name }}"
-                     class="relative w-36 h-36 sm:w-40 sm:h-40 object-cover rounded-full shadow-xl border-4 border-white">
+                     class="relative w-36 h-36 sm:w-40 sm:h-40 object-cover rounded-2xl shadow-xl border-4 border-white">
                 @else
-                <div class="relative w-36 h-36 sm:w-40 sm:h-40 bg-gradient-to-br from-stone-200 to-stone-300 rounded-full shadow-xl border-4 border-white flex items-center justify-center">
+                <div class="relative w-36 h-36 sm:w-40 sm:h-40 bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl shadow-xl border-4 border-white flex items-center justify-center">
                     <svg class="w-16 h-16 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
