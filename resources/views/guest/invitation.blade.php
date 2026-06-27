@@ -163,7 +163,7 @@
     {{-- Background Music --}}
     <audio id="bgMusic" loop preload="auto">
         @if($wedding->music_file)
-            {{-- ✅ Prioritas: File Upload dari Storage --}}
+            {{-- Prioritas: File Upload dari Storage --}}
             <source src="{{ asset('storage/' . $wedding->music_file) }}" type="audio/mpeg">
         @else
             {{-- 🎵 Default: Musik fallback jika tidak ada upload --}}
@@ -195,7 +195,7 @@
                 rsvpLoading: false,
                 rsvpSubmitted: false,
 
-                // Guestbook
+                // Guestbook - DENGAN PAGINATION
                 guestbookMessages: [],
                 guestbookLoading: false,
                 guestbookForm: {
@@ -203,7 +203,10 @@
                     message: '',
                     attendance_status: ''
                 },
-                showAllMessages: false,
+                currentPage: 1,
+                lastPage: 1,
+                hasMorePages: false,
+                loadingMore: false,
 
                 // Gallery Slider
                 currentSlide: 0,
@@ -215,7 +218,7 @@
                 init() {
                     this.startCountdown();
                     this.initScrollObserver();
-                    this.loadGuestbook();
+                    this.loadGuestbook(1);
 
                     // Parse URL params
                     const params = new URLSearchParams(window.location.search);
@@ -228,10 +231,7 @@
 
                     // AUTO-SCROLL KE GUESTBOOK SETELAH REFRESH
                     if (sessionStorage.getItem('scroll_to_guestbook') === 'true') {
-                        // Hapus flag agar tidak scroll terus-menerus
                         sessionStorage.removeItem('scroll_to_guestbook');
-
-                        // Scroll setelah DOM ready
                         setTimeout(() => {
                             const guestbookSection = document.getElementById('guestbook');
                             if (guestbookSection) {
@@ -240,7 +240,7 @@
                                     block: 'start'
                                 });
                             }
-                        }, 500); // Tunggu 500ms agar konten ter-render
+                        }, 500);
                     }
 
                     // Check if user already opened (session)
@@ -258,7 +258,6 @@
                         setTimeout(() => this.playMusic(), 800);
                     }
 
-                    // Enable body scroll
                     document.body.style.overflow = 'auto';
                 },
 
@@ -277,7 +276,6 @@
                         this.isPlaying = true;
                     }).catch(e => {
                         console.log('Autoplay blocked:', e);
-                        // Browser policy: need user interaction
                     });
                 },
 
@@ -315,14 +313,12 @@
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
                                 entry.target.classList.add('visible');
-                                // Update active section
                                 const id = entry.target.id;
                                 if (id) this.activeSection = id;
                             }
                         });
                     }, { threshold: 0.3 });
 
-                    // Observe after DOM is ready
                     setTimeout(() => {
                         document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
                     }, 100);
@@ -366,8 +362,8 @@
                         if (data.success) {
                             this.rsvpSubmitted = true;
                             this.showNotification('Terima kasih! RSVP Anda berhasil dikirim.', 'success');
-                            this.rsvpForm = { name: this.rsvpForm.name, attendance: '', guest_count: 1, message: '' };
-                            this.loadGuestbook();
+                            this.rsvpForm = { name: this.rsvpForm.name, attendance: '', guest_count: 1 };
+                            this.loadGuestbook(1);
                         } else {
                             this.showNotification(data.message || 'Terjadi kesalahan. Silakan coba lagi.', 'error');
                         }
@@ -379,18 +375,61 @@
                     }
                 },
 
-                // Guestbook Methods
-                async loadGuestbook() {
-                    this.guestbookLoading = true;
+                async loadGuestbook(page = 1) {
+                    if (page === 1) {
+                        this.guestbookLoading = true;
+                    }
+
                     try {
-                        const response = await fetch('{{ route("guest.guestbook.index", $wedding->slug) }}');
+                        const timestamp = new Date().getTime();
+                        const url = `{{ route("guest.guestbook.index", $wedding->slug) }}?page=${page}&t=${timestamp}`;
+
+                        const response = await fetch(url, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Cache-Control': 'no-cache'
+                            }
+                        });
+
                         const data = await response.json();
-                        this.guestbookMessages = data.messages?.data || data.messages || [];
+
+                        if (data.success) {
+                            // Baca dari data.messages (array) dan data.pagination (object)
+                            const messages = data.messages || [];
+                            const pagination = data.pagination || {};
+
+                            if (page === 1) {
+                                // First load - replace all
+                                this.guestbookMessages = messages;
+                            } else {
+                                // Load more - append
+                                this.guestbookMessages = [...this.guestbookMessages, ...messages];
+                            }
+
+                            // Update pagination state
+                            this.currentPage = pagination.current_page || 1;
+                            this.lastPage = pagination.last_page || 1;
+                            this.hasMorePages = pagination.has_more || false;
+                        }
                     } catch (error) {
                         console.error('Guestbook Error:', error);
                     } finally {
                         this.guestbookLoading = false;
+                        this.loadingMore = false;
                     }
+                },
+
+                async loadMoreMessages() {
+                    if (this.loadingMore || !this.hasMorePages) {
+                        console.log('⚠️ Cannot load more:', { loadingMore: this.loadingMore, hasMorePages: this.hasMorePages });
+                        return;
+                    }
+
+                    this.loadingMore = true;
+                    const nextPage = this.currentPage + 1;
+
+                    console.log(`🔄 Loading page ${nextPage}...`);
+                    await this.loadGuestbook(nextPage);
                 },
 
                 async submitGuestbook() {
@@ -399,8 +438,9 @@
                         return;
                     }
 
+                    this.guestbookLoading = true;
+
                     try {
-                        // Ambil unique_code dari hidden input (sama seperti RSVP)
                         const uniqueCodeInput = document.querySelector('input[name="unique_code"]');
                         const uniqueCode = uniqueCodeInput ? uniqueCodeInput.value : '';
 
@@ -413,7 +453,7 @@
                             },
                             body: JSON.stringify({
                                 ...this.guestbookForm,
-                                unique_code: uniqueCode  // ← Ini kuncinya!
+                                unique_code: uniqueCode
                             })
                         });
 
@@ -423,24 +463,15 @@
                             this.showNotification('Ucapan berhasil dikirim!', 'success');
                             sessionStorage.setItem('scroll_to_guestbook', 'true');
                             window.location.reload();
-                            this.guestbookForm = {
-                                name: this.guestbookForm.name,
-                                message: '',
-                                attendance_status: this.guestbookForm.attendance_status
-                            };
-
-                            this.loadGuestbook();
                         } else {
                             this.showNotification(data.message || 'Gagal mengirim ucapan.', 'error');
                         }
                     } catch (error) {
+                        console.error('Guestbook Error:', error);
                         this.showNotification('Terjadi kesalahan jaringan.', 'error');
+                    } finally {
+                        this.guestbookLoading = false;
                     }
-                },
-
-                getDisplayMessages() {
-                    const limit = this.showAllMessages ? this.guestbookMessages.length : 5;
-                    return this.guestbookMessages.slice(0, limit);
                 },
 
                 // Gallery Methods
@@ -463,7 +494,6 @@
                     navigator.clipboard.writeText(text).then(() => {
                         this.showNotification(`${label} berhasil disalin!`, 'success');
                     }).catch(() => {
-                        // Fallback
                         const ta = document.createElement('textarea');
                         ta.value = text;
                         document.body.appendChild(ta);

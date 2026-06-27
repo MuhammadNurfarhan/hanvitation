@@ -23,9 +23,24 @@ class GuestbookController extends Controller
             ->latest()
             ->paginate(10);
 
+        $messages->getCollection()->transform(function ($message) {
+            $message->diff_for_humans = \Carbon\Carbon::parse($message->created_at)->diffForHumans();
+            return $message;
+        });
+
         return response()->json([
             'success' => true,
-            'messages' => $messages
+            'messages' => $messages->items(),
+            'pagination' => [
+                'current_page' => $messages->currentPage(),
+                'last_page' => $messages->lastPage(),
+                'per_page' => $messages->perPage(),
+                'total' => $messages->total(),
+                'has_more' => $messages->hasMorePages(),
+                'next_page' => $messages->currentPage() < $messages->lastPage()
+                    ? $messages->currentPage() + 1
+                    : null,
+            ]
         ]);
     }
 
