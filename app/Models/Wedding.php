@@ -16,7 +16,7 @@ class Wedding extends Model
         'bride_name', 'bride_first_name', 'bride_father_name', 'bride_mother_name',
         'bride_photo', 'bride_instagram', 'bride_instagram_handle',
         'event_date', 'quote', 'quote_source', 'greeting_message',
-        'cover_image', 'groom_photo', 'bride_photo', 'music_file', 'qr_code', 'is_published', 'published_at'
+        'cover_image', 'envelope_image', 'groom_photo', 'bride_photo', 'music_file', 'qr_code', 'is_published', 'published_at'
     ];
 
     protected $casts = [

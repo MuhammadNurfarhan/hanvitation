@@ -63,12 +63,18 @@ class WeddingController extends Controller
             'quote' => 'nullable|string|max:500',
             'quote_source' => 'nullable|string|max:100',
             'cover_image' => 'nullable|image|max:5048',
+            'envelope_image' => 'nullable|image|max:5048',
             'music_file' => 'nullable|file|mimes:mp3,wav,ogg|max:10480',
         ]);
 
-        // Handle image upload
+        // Handle cover image upload
         if ($request->hasFile('cover_image')) {
             $validated['cover_image'] = $request->file('cover_image')->store('weddings/covers', 'public');
+        }
+
+        // Handle envelope image upload
+        if ($request->hasFile('envelope_image')) {
+            $validated['envelope_image'] = $request->file('envelope_image')->store('weddings/envelopes', 'public');
         }
 
         // Handle music upload
@@ -125,11 +131,26 @@ class WeddingController extends Controller
             'quote' => 'nullable|string|max:500',
             'quote_source' => 'nullable|string|max:100',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
+            'envelope_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'groom_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'bride_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
             'music_file' => 'nullable|file|mimes:mp3,wav,ogg|max:10480',
             'is_published' => 'boolean',
         ]);
+
+        // Handle envelope image update (hapus file lama dulu)
+        if ($request->hasFile('envelope_image')) {
+            if ($wedding->envelope_image) {
+                Storage::disk('public')->delete($wedding->envelope_image);
+            }
+            $validated['envelope_image'] = $request->file('envelope_image')->store('weddings/envelopes', 'public');
+        }
+
+        // Opsional: hapus envelope image (kembali fallback ke cover)
+        if ($request->has('delete_envelope_image') && $wedding->envelope_image) {
+            Storage::disk('public')->delete($wedding->envelope_image);
+            $validated['envelope_image'] = null;
+        }
 
         if ($request->hasFile('cover_image')) {
             // Delete old image if exists

@@ -29,25 +29,29 @@
             <div class="grid grid-cols-4 gap-2 sm:gap-3">
                 <div class="text-center">
                     <div class="bg-white/80 rounded-lg p-2 sm:p-3 shadow-sm">
-                        <span x-text="countdown.days" class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
+                        <span x-text="countdown.days"
+                            class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
                     </div>
                     <span class="text-[10px] sm:text-xs text-red-900 uppercase mt-1 block">Hari</span>
                 </div>
                 <div class="text-center">
                     <div class="bg-white/80 rounded-lg p-2 sm:p-3 shadow-sm">
-                        <span x-text="countdown.hours" class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
+                        <span x-text="countdown.hours"
+                            class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
                     </div>
                     <span class="text-[10px] sm:text-xs text-red-900 uppercase mt-1 block">Jam</span>
                 </div>
                 <div class="text-center">
                     <div class="bg-white/80 rounded-lg p-2 sm:p-3 shadow-sm">
-                        <span x-text="countdown.minutes" class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
+                        <span x-text="countdown.minutes"
+                            class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
                     </div>
                     <span class="text-[10px] sm:text-xs text-red-900 uppercase mt-1 block">Menit</span>
                 </div>
                 <div class="text-center">
                     <div class="bg-white/80 rounded-lg p-2 sm:p-3 shadow-sm">
-                        <span x-text="countdown.seconds" class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
+                        <span x-text="countdown.seconds"
+                            class="text-xl sm:text-2xl md:text-3xl font-bold text-red-900 font-serif-custom">00</span>
                     </div>
                     <span class="text-[10px] sm:text-xs text-red-900 uppercase mt-1 block">Detik</span>
                 </div>
@@ -55,10 +59,10 @@
         </div>
 
         <button @click="scrollToSection('quote')"
-                class="mt-8 inline-flex items-center gap-2 text-stone-600 hover:text-red-900 transition-colors animate-bounce">
+            class="mt-8 inline-flex items-center gap-2 text-stone-600 hover:text-red-900 transition-colors animate-bounce">
             <span class="text-sm">Scroll Down</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
         </button>
     </div>
