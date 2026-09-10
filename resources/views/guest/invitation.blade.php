@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -22,50 +23,112 @@
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
 
     {{-- Tailwind CSS --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        [x-cloak] { display: none !important; }
+        [x-cloak] {
+            display: none !important;
+        }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 0; height: 0; }
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
 
         /* Font Utilities */
-        .font-script { font-family: 'Great Vibes', cursive; }
-        .font-serif-custom { font-family: 'Playfair Display', serif; }
-        .font-sans-custom { font-family: 'Inter', sans-serif; }
+        .font-script {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-serif-custom {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-sans-custom {
+            font-family: 'Inter', sans-serif;
+        }
 
         /* Envelope Animation */
         @keyframes envelopeOpen {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
-        }
-        @keyframes flapOpen {
-            0% { transform: rotateX(0deg); }
-            100% { transform: rotateX(-180deg); }
-        }
-        @keyframes cardSlide {
-            0% { transform: translateY(0); opacity: 0; }
-            100% { transform: translateY(-40px); opacity: 1; }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-20px);
+            }
         }
 
-        .envelope-wrapper { perspective: 1000px; }
-        .envelope-body { transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .envelope-open .envelope-flap { animation: flapOpen 0.8s ease forwards; }
-        .envelope-open .invitation-card { animation: cardSlide 0.6s ease 0.3s forwards; }
+        @keyframes flapOpen {
+            0% {
+                transform: rotateX(0deg);
+            }
+
+            100% {
+                transform: rotateX(-180deg);
+            }
+        }
+
+        @keyframes cardSlide {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(-40px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope-body {
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .envelope-open .envelope-flap {
+            animation: flapOpen 0.8s ease forwards;
+        }
+
+        .envelope-open .invitation-card {
+            animation: cardSlide 0.6s ease 0.3s forwards;
+        }
 
         /* Music Button Pulse */
         @keyframes pulseRing {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            100% { transform: scale(1.4); opacity: 0; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
         }
+
         .music-pulse::before {
             content: '';
             position: absolute;
@@ -81,6 +144,7 @@
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
+
         .section-fade.visible {
             opacity: 1;
             transform: translateY(0);
@@ -102,26 +166,25 @@
         }
 
         /* Safe Area for Mobile */
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
     </style>
 </head>
-<body class="font-sans-custom bg-stone-50 text-stone-800 antialiased overflow-x-hidden"
-      x-data="weddingApp()"
-      x-init="init()">
+
+<body class="font-sans-custom bg-stone-50 text-stone-800 antialiased overflow-x-hidden" x-data="weddingApp()"
+    x-init="init()">
 
     {{-- ============================================
-         ENVELOPE OPENING ANIMATION
+    ENVELOPE OPENING ANIMATION
     ============================================ --}}
     @include('guest.partials.envelope')
 
     {{-- ============================================
-         MAIN INVITATION CONTENT
+    MAIN INVITATION CONTENT
     ============================================ --}}
-    <div x-show="invitationOpened" x-cloak
-         x-transition:enter="transition ease-out duration-700"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         class="relative">
+    <div x-show="invitationOpened" x-cloak x-transition:enter="transition ease-out duration-700"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="relative">
 
         {{-- Sticky Header --}}
         @include('guest.partials.header')
@@ -139,7 +202,7 @@
         @include('guest.partials.events')
 
         {{-- Gallery --}}
-        @include('guest.partials.gallery')
+        {{-- @include('guest.partials.gallery') --}}
 
         {{-- RSVP --}}
         @include('guest.partials.rsvp')
@@ -163,17 +226,17 @@
     {{-- Background Music --}}
     <audio id="bgMusic" loop preload="auto">
         @if($wedding->music_file)
-            {{-- Prioritas: File Upload dari Storage --}}
-            <source src="{{ asset('storage/' . $wedding->music_file) }}" type="audio/mpeg">
+        {{-- Prioritas: File Upload dari Storage --}}
+        <source src="{{ asset('storage/' . $wedding->music_file) }}" type="audio/mpeg">
         @else
-            {{-- 🎵 Default: Musik fallback jika tidak ada upload --}}
-            <source src="{{ asset('audio/default-wedding.mp3') }}" type="audio/mpeg">
+        {{-- 🎵 Default: Musik fallback jika tidak ada upload --}}
+        <source src="{{ asset('audio/default-wedding.mp3') }}" type="audio/mpeg">
         @endif
         Your browser does not support the audio element.
     </audio>
 
     {{-- ============================================
-         ALPINE.JS APPLICATION
+    ALPINE.JS APPLICATION
     ============================================ --}}
     <script>
         function weddingApp() {
@@ -527,4 +590,5 @@
         }
     </script>
 </body>
+
 </html>

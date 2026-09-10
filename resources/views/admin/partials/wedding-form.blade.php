@@ -76,7 +76,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <x-input-label for="event_date" value="Wedding Date (Tanggal Undangan) *" />
+                <x-input-label for="event_date" value="Wedding Date (Tanggal Pernikahan) *" />
                 <x-text-input id="event_date" name="event_date" type="datetime-local" class="mt-1 block w-full"
                     :value="old('event_date', $wedding->event_date?->format('Y-m-d\TH:i') ?? '')" required />
                 <x-input-error :messages="$errors->get('event_date')" class="mt-2" />
@@ -112,7 +112,7 @@
 
                 {{-- Groom Photo --}}
                 <div>
-                    <x-input-label for="groom_photo" value="Foto Mempelai Putra" />
+                    <x-input-label for="groom_photo" value="Foto Mempelai Pria" />
                     <input type="file" id="groom_photo" name="groom_photo" accept="image/*" class="mt-1 block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4
                                   file:rounded-xl file:border-0 file:text-sm file:font-medium
                                   file:bg-red-50 file:text-red-700 hover:file:bg-red-100" />
@@ -132,7 +132,7 @@
 
                 {{-- Bride Photo --}}
                 <div>
-                    <x-input-label for="bride_photo" value="Foto Mempelai Putri" />
+                    <x-input-label for="bride_photo" value="Foto Mempelai Wanita" />
                     <input type="file" id="bride_photo" name="bride_photo" accept="image/*" class="mt-1 block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4
                                   file:rounded-xl file:border-0 file:text-sm file:font-medium
                                   file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100" />

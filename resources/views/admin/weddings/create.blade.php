@@ -30,28 +30,32 @@
                                 <div>
                                     <x-input-label for="groom_name" value="Full Name *" />
                                     <x-text-input id="groom_name" name="groom_name" type="text"
-                                        class="mt-1 block w-full" :value="old('groom_name')" required />
+                                        class="mt-1 block w-full" :value="old('groom_name')"
+                                        placeholder="Nama Lengkap Mempelai Pria" required />
                                     <x-input-error :messages="$errors->get('groom_name')" class="mt-2" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="groom_first_name" value="First Name (for URL) *" />
                                     <x-text-input id="groom_first_name" name="groom_first_name" type="text"
-                                        class="mt-1 block w-full" :value="old('groom_first_name')" required />
+                                        class="mt-1 block w-full" :value="old('groom_first_name')"
+                                        placeholder="Nama Panggilan Untuk URL" required />
                                     <x-input-error :messages="$errors->get('groom_first_name')" class="mt-2" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="groom_father_name" value="Father's Name *" />
                                     <x-text-input id="groom_father_name" name="groom_father_name" type="text"
-                                        class="mt-1 block w-full" :value="old('groom_father_name')" required />
+                                        class="mt-1 block w-full" :value="old('groom_father_name')"
+                                        placeholder="Nama Ayah Mempelai Pria" required />
                                     <x-input-error :messages="$errors->get('groom_father_name')" class="mt-2" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="groom_mother_name" value="Mother's Name *" />
                                     <x-text-input id="groom_mother_name" name="groom_mother_name" type="text"
-                                        class="mt-1 block w-full" :value="old('groom_mother_name')" required />
+                                        class="mt-1 block w-full" :value="old('groom_mother_name')"
+                                        placeholder="Nama Ibu Mempelai Pria" required />
                                     <x-input-error :messages="$errors->get('groom_mother_name')" class="mt-2" />
                                 </div>
                             </div>
@@ -63,28 +67,32 @@
                                 <div>
                                     <x-input-label for="bride_name" value="Full Name *" />
                                     <x-text-input id="bride_name" name="bride_name" type="text"
-                                        class="mt-1 block w-full" :value="old('bride_name')" required />
+                                        class="mt-1 block w-full" :value="old('bride_name')"
+                                        placeholder="Nama Lengkap Mempelai Wanita" required />
                                     <x-input-error :messages="$errors->get('bride_name')" class="mt-2" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="bride_first_name" value="First Name (for URL) *" />
                                     <x-text-input id="bride_first_name" name="bride_first_name" type="text"
-                                        class="mt-1 block w-full" :value="old('bride_first_name')" required />
+                                        class="mt-1 block w-full" :value="old('bride_first_name')"
+                                        placeholder="Nama Panggilan Untuk URL" required />
                                     <x-input-error :messages="$errors->get('bride_first_name')" class="mt-2" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="bride_father_name" value="Father's Name *" />
                                     <x-text-input id="bride_father_name" name="bride_father_name" type="text"
-                                        class="mt-1 block w-full" :value="old('bride_father_name')" required />
+                                        class="mt-1 block w-full" :value="old('bride_father_name')"
+                                        placeholder="Nama Ayah Mempelai Wanita" required />
                                     <x-input-error :messages="$errors->get('bride_father_name')" class="mt-2" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="bride_mother_name" value="Mother's Name *" />
                                     <x-text-input id="bride_mother_name" name="bride_mother_name" type="text"
-                                        class="mt-1 block w-full" :value="old('bride_mother_name')" required />
+                                        class="mt-1 block w-full" :value="old('bride_mother_name')"
+                                        placeholder="Nama Ibu Mempelai Wanita" required />
                                     <x-input-error :messages="$errors->get('bride_mother_name')" class="mt-2" />
                                 </div>
                             </div>
@@ -103,22 +111,21 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <x-input-label for="event_date" value="Wedding Date *" />
+                                <x-input-label for="event_date" value="Wedding Date (Tanggal Pernikahan) *" />
                                 <x-text-input id="event_date" name="event_date" type="datetime-local"
                                     class="mt-1 block w-full" :value="old('event_date')" required />
                                 <x-input-error :messages="$errors->get('event_date')" class="mt-2" />
                             </div>
 
                             <div>
-                                <x-input-label for="quote" value="Quote" />
+                                <x-input-label for="quote" value="Quote / Ayat" />
                                 <textarea id="quote" name="quote" rows="3" class="mt-1 block w-full rounded-xl"
-                                    placeholder="Love is patient, love is kind..."
-                                    required>{{ old('quote', $wedding?->quote ?? '') }}</textarea>
+                                    placeholder="Love is patient, love is kind...">{{ old('quote', $wedding?->quote ?? '') }}</textarea>
                                 <x-input-error :messages="$errors->get('quote')" class="mt-2" />
                             </div>
 
                             <div class="md:col-span-2">
-                                <x-input-label for="quote_source" value="Quote Source" />
+                                <x-input-label for="quote_source" value="Quote Source (Sumber Ayat)" />
                                 <x-text-input id="quote_source" name="quote_source" type="text"
                                     class="mt-1 block w-full" :value="old('quote_source')"
                                     placeholder="Corinthians 13:4" />
@@ -138,6 +145,7 @@
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {{-- Cover Image (halaman undangan) --}}
                             <div>
                                 <x-input-label for="cover_image" value="Foto Cover (Halaman Dalam Undangan)" />
                                 <input type="file" id="cover_image" name="cover_image" accept="image/*" class="mt-1 block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4
@@ -151,25 +159,16 @@
                                     alt="Preview" />
                             </div>
 
-                            {{-- Envelope Image (untuk halaman amplop) --}}
+                            {{-- Envelope Image (halaman amplop) --}}
                             <div>
                                 <x-input-label for="envelope_image" value="Foto Background Amplop (Halaman Pembuka)" />
-                                @if($wedding->envelope_image)
-                                <div class="relative mt-2">
-                                    <img src="{{ asset('storage/' . $wedding->envelope_image) }}"
-                                        class="h-32 w-full object-cover rounded-xl border border-stone-200">
-                                    <label
-                                        class="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 bg-white/90 rounded-lg text-xs cursor-pointer">
-                                        <input type="checkbox" name="delete_envelope_image" value="1"
-                                            class="rounded border-stone-300">
-                                        Hapus
-                                    </label>
-                                </div>
-                                @endif
-                                <x-text-input id="envelope_image" name="envelope_image" type="file"
-                                    accept="image/jpeg,image/png,image/jpg,image/webp" class="mt-1 block w-full" />
-                                <p class="text-xs text-stone-500 mt-1">💡 Jika dikosongkan, halaman amplop akan memakai
-                                    foto cover.</p>
+                                <input type="file" id="envelope_image" name="envelope_image"
+                                    accept="image/jpeg,image/png,image/jpg,image/webp" class="mt-1 block w-full text-sm text-stone-500 file:mr-4 file:py-2 file:px-4
+                                                   file:rounded-xl file:border-0 file:text-sm file:font-medium
+                                                   file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100" />
+                                <x-input-error :messages="$errors->get('envelope_image')" class="mt-2" />
+                                <img id="envelope_preview" class="mt-4 w-full max-w-xs rounded-xl shadow hidden" src="#"
+                                    alt="Preview" />
                             </div>
 
                             {{-- Music File --}}
@@ -208,20 +207,27 @@
 
     {{-- Image Preview Script --}}
     <script>
-        document.getElementById('cover_image').addEventListener('change', function(e) {
-            const preview = document.getElementById('cover_preview');
-            const file = e.target.files[0];
+        function bindPreview(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            if (!input || !preview) return;
 
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        preview.src = ev.target.result;
+                        preview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.classList.add('hidden');
                 }
-                reader.readAsDataURL(file);
-            } else {
-                preview.classList.add('hidden');
-            }
-        });
+            });
+        }
+
+        bindPreview('cover_image', 'cover_preview');
+        bindPreview('envelope_image', 'envelope_preview');
     </script>
 </x-app-layout>

@@ -12,7 +12,7 @@
     {{-- Content --}}
     <div class="relative z-10 text-center px-6 max-w-md mx-auto section-fade">
 
-        <p class="text-xs sm:text-sm uppercase tracking-[0.3em] text-stone-500 mb-2">The Wedding Of</p>
+        <p class="text-xl sm:text-xl uppercase tracking-[0.3em] text-black mb-2">The Wedding Of</p>
 
         <h1 class="font-script text-5xl sm:text-6xl md:text-7xl text-gradient mb-4 leading-tight">
             {{ $wedding->groom_first_name }} & {{ $wedding->bride_first_name }}
@@ -20,7 +20,7 @@
 
         <div class="w-24 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto mb-4"></div>
 
-        <p class="text-stone-600 text-sm sm:text-base font-medium">
+        <p class="text-white text-base sm:text-base font-medium">
             {{ \Carbon\Carbon::parse($wedding->event_date)->isoFormat('dddd, D MMMM YYYY') }}
         </p>
 

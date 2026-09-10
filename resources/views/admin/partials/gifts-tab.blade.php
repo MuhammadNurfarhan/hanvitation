@@ -8,15 +8,15 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <x-input-label for="bank_name" value="Bank Name *" />
-                    <x-text-input name="bank_name" type="text" required class="mt-1 block w-full" placeholder="BCA" />
+                    <x-text-input name="bank_name" type="text" required class="mt-1 block w-full" placeholder="Nama Bank / e-wallet" />
                 </div>
                 <div>
                     <x-input-label for="account_number" value="Account Number *" />
-                    <x-text-input name="account_number" type="text" required class="mt-1 block w-full font-mono" placeholder="1234567890" />
+                    <x-text-input name="account_number" type="text" required class="mt-1 block w-full font-mono" placeholder="Nomor Rekening / e-wallet" />
                 </div>
                 <div>
                     <x-input-label for="account_holder" value="Account Holder *" />
-                    <x-text-input name="account_holder" type="text" required class="mt-1 block w-full" placeholder="John Doe" />
+                    <x-text-input name="account_holder" type="text" required class="mt-1 block w-full" placeholder="Nama Pemilik Rekening / e-wallet" />
                 </div>
             </div>
             <x-primary-button type="submit">Add Account</x-primary-button>
